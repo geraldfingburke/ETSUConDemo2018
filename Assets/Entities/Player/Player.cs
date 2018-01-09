@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 
     public float moveSpeed;
     public float jumpHeight;
+    public float projectileSpeed;
+    public Projectile projectile;
 
 	// Update is called once per frame
 	void Update () {
@@ -79,6 +81,29 @@ public class Player : MonoBehaviour {
                 {
                     Destroy(hit.collider.gameObject);
                 }
+            }
+        }
+        if (Input.GetButtonDown("RangeAttack"))
+        {
+            if (facing == 0)
+            {
+                Projectile proj = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
+                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+            }
+            else if (facing == 1)
+            {
+                Projectile proj = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
+                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
+            }
+            else if (facing == 2)
+            {
+                Projectile proj = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
+                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
+            }
+            else if (facing == 3)
+            {
+                Projectile proj = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
+                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
             }
         }
         if (Input.GetButtonDown("Jump"))
