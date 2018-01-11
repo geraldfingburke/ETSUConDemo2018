@@ -6,6 +6,7 @@ public class Player2 : MonoBehaviour {
 
     private int facing;
 
+    public float health;
     public float moveSpeed;
     public float jumpHeight;
     public float projectileSpeed;
@@ -118,6 +119,10 @@ public class Player2 : MonoBehaviour {
             {
                 this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
             }
+        }
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50017021046945620}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31063b464841b9c449a573e51aa7602f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 10
   moveSpeed: 10
   jumpHeight: 500
-  projectileSpeed: 300
+  projectileSpeed: 500
   projectile: {fileID: 114537209774484542, guid: 3c8415d549f275b47bf4556b85658c0c,
     type: 2}
 --- !u!212 &212619295669501200

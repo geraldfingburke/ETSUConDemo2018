@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
     private int facing;
 
+    public float health;
     public float moveSpeed;
     public float jumpHeight;
     public float projectileSpeed;
@@ -15,13 +16,11 @@ public class Player : MonoBehaviour {
 	void Update () {
 		if (Input.GetAxis("Horizontal") >= 0.05f)
         {
-            Debug.DrawRay(transform.position, Vector3.right, Color.red, 10f);
             this.GetComponent<SpriteRenderer>().flipX = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0), Vector2.right, 0.05f);
             if (hit.collider == null)
             {
                 transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-                Debug.Log("clear");
             } else
             {
                 Debug.Log("blocked");
@@ -113,6 +112,10 @@ public class Player : MonoBehaviour {
             {
                 this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
             }
+        }
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
         }
 	}
 }
