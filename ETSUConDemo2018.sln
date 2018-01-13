@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETSUConDemo2018", "ETSUConDemo2018.csproj", "{E5CD0245-F754-71FE-D786-83A679293B49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETSUConDemo2018.CSharp", "ETSUConDemo2018.CSharp.csproj", "{CCD99C5B-C265-B3CC-BCCA-D56950D9F393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E5CD0245-F754-71FE-D786-83A679293B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5CD0245-F754-71FE-D786-83A679293B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5CD0245-F754-71FE-D786-83A679293B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5CD0245-F754-71FE-D786-83A679293B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD99C5B-C265-B3CC-BCCA-D56950D9F393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD99C5B-C265-B3CC-BCCA-D56950D9F393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD99C5B-C265-B3CC-BCCA-D56950D9F393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD99C5B-C265-B3CC-BCCA-D56950D9F393}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
