@@ -11,6 +11,13 @@ public class Lava : MonoBehaviour {
         if (col.CompareTag("Player1") || col.CompareTag("Player2"))
         {
             Destroy(col.gameObject);
+
+            //TODO
+            /**
+             * Add health check
+             * add speading left and right?
+             * Maybe create invinsibilty 
+             */
         }
 
         
