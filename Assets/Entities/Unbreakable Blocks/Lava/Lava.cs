@@ -6,17 +6,34 @@ public class Lava : MonoBehaviour {
 
     public GameObject lava;
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.CompareTag("Player1") || col.CompareTag("Player2"))
+        switch (col.gameObject.tag)
         {
-            Destroy(col.gameObject);
+            case ("Player1"):
+                    col.gameObject.GetComponent<Player>().health = 0;
+                    break;
+
+            case ("Player2"):
+                    col.gameObject.GetComponent<Player2>().health = 0;
+                    break;
+
+            //TODO
+            /**
+             * add speading left and right?
+             * Maybe create invinsibilty 
+             */
         }
 
         
     }
 
-    void Update ()
+    void Start ()
+    {
+        InvokeRepeating("LavaFlow", 0.5f, 0.5f);
+    }
+
+    void LavaFlow ()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -1f), Vector2.down, 0.05f);
         if (hit.collider == null || hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2"))

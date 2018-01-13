@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /**
  * <summary>
  * Game Manager is for keeping track of game state, lives, score, and ending a match.
