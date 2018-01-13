@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Player2 : MonoBehaviour {
 
+    [Header("Where is the player facing?")]
     private int facing;
-
+    [Header("Player Health")]
     public float health;
+    [Header("How Fast Player Can Move")]
     public float moveSpeed;
+    [Header("how high player can jump")]
     public float jumpHeight;
+    [Header("How fast The projectile can move")]
     public float projectileSpeed;
+    [Header("Object of type 'Projectile'")]
     public Projectile projectile;
 
     // Update is called once per frame
@@ -26,9 +31,8 @@ public class Player2 : MonoBehaviour {
                 Debug.Log("clear");
             }
             else
-            {
                 Debug.Log("blocked");
-            }
+            
             facing = 0;
         }
         if (Input.GetAxis("P2Horizontal") <= -0.05f)
@@ -54,75 +58,41 @@ public class Player2 : MonoBehaviour {
         {
             facing = 3;
         }
-        if (Input.GetButtonDown("P2Attack"))
-        {
-            if (facing == 0)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0), Vector2.right, 1);
-                if (hit.collider.CompareTag("Breakable"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-            }
-            else if (facing == 1)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-0.5f, 0), Vector2.left, 1);
-                if (hit.collider.CompareTag("Breakable"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-            }
-            else if (facing == 2)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, 0.5f), Vector2.up, 0.5f);
-                if (hit.collider.CompareTag("Breakable"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-            }
-            else if (facing == 3)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
-                if (hit.collider.CompareTag("Breakable"))
-                {
-                    Destroy(hit.collider.gameObject);
-                }
-            }
-        }
+        
         if (Input.GetButtonDown("P2RangeAttack"))
         {
-            if (facing == 0)
+            switch(facing)
             {
-                Projectile proj = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
-                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+                case (0):
+                    Projectile projR = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
+                    projR.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+                    break;
+                case (1):
+                    Projectile projL = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
+                    projL.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
+                    break;
+                case (2):
+                    Projectile projUp = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
+                    projUp.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
+                    break;
+                case (3):
+                    Projectile projDown = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
+                    projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
+                    break;     
             }
-            else if (facing == 1)
-            {
-                Projectile proj = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
-                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
-            }
-            else if (facing == 2)
-            {
-                Projectile proj = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
-                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
-            }
-            else if (facing == 3)
-            {
-                Projectile proj = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
-                proj.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
-            }
+           
         }
         if (Input.GetButtonDown("P2Jump"))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
             if (hit.collider != null)
             {
-                this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
             }
         }
         if (health <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }
