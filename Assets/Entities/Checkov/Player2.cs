@@ -22,6 +22,7 @@ public class Player2 : MonoBehaviour {
     void Start()
     {
         anim = GetComponent<Animator>();
+        InvokeRepeating("CheckGround", 0.5f, 0.2f);
     }
 
     // Update is called once per frame
@@ -30,24 +31,25 @@ public class Player2 : MonoBehaviour {
         if (Input.GetAxis("P2Horizontal") >= 0.05f)
         {
             anim.SetBool("upIdle", false);
-            Debug.DrawRay(transform.position, Vector3.right, Color.red, 10f);
-            GetComponent<SpriteRenderer>().flipX = false;
+            anim.SetBool("downIdle", false);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0), Vector2.right, 0.05f);
             if (hit.collider == null)
             {
                 anim.SetBool("walk", true);
                 transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-                Debug.Log("clear");
             }
             else
+            {
                 Debug.Log("blocked");
-
+            }
             facing = 0;
         }
         if (Input.GetAxis("P2Horizontal") <= -0.05f)
         {
             anim.SetBool("upIdle", false);
-            GetComponent<SpriteRenderer>().flipX = true;
+            anim.SetBool("downIdle", false);
+            this.GetComponent<SpriteRenderer>().flipX = true;
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-0.5f, 0), Vector2.left, 0.05f);
             if (hit.collider == null)
             {
@@ -68,13 +70,15 @@ public class Player2 : MonoBehaviour {
         if (Input.GetAxis("P2Vertical") >= 0.05f)
         {
             anim.SetBool("upIdle", true);
+            anim.SetBool("downIdle", false);
             facing = 2;
         }
         if (Input.GetAxis("P2Vertical") <= -0.05f)
         {
+            anim.SetBool("downIdle", true);
+            anim.SetBool("upIdle", false);
             facing = 3;
         }
-        
 
         if (Input.GetButtonDown("P2RangeAttack"))
         {
@@ -98,16 +102,24 @@ public class Player2 : MonoBehaviour {
                     projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
                     break;
             }
-
         }
+
+
         if (Input.GetButtonDown("P2Jump"))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
             if (hit.collider != null)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
+                anim.SetBool("jump", true);
+                GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
             }
         }
+
+        if (Input.GetButtonDown("P2Taunt"))
+        {
+            anim.SetTrigger("taunt");
+        }
+
         if (health <= 0)
         {
             anim.SetTrigger("fall");
@@ -119,5 +131,14 @@ public class Player2 : MonoBehaviour {
     void Death()
     {
         Destroy(gameObject);
+    }
+
+    void CheckGround()
+    {
+        RaycastHit2D checkGround = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
+        if (checkGround.collider != null)
+        {
+            anim.SetBool("jump", false);
+        }
     }
 }

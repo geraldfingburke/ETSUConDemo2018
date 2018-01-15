@@ -223,9 +223,9 @@
     <Compile Include="Assets\Code\ProceduralGeneration.cs" />
     <Compile Include="Assets\Entities\Alice\Player.cs" />
     <Compile Include="Assets\Entities\Checkov\Player2.cs" />
+    <Compile Include="Assets\Entities\Projectile\Projectile.cs" />
     <Compile Include="Assets\Entities\Tiles\BreakableBlock.cs" />
     <Compile Include="Assets\Entities\Tiles\Lava.cs" />
-    <Compile Include="Assets\Entities\VFX\Projectile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

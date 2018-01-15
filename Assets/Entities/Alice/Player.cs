@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        InvokeRepeating("CheckGround", 0.5f, 0.2f);
     }
 
     // Update is called once per frame
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         if (Input.GetAxis("Horizontal") >= 0.05f)
         {
             anim.SetBool("upIdle", false);
+            anim.SetBool("downIdle", false);
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0), Vector2.right, 0.05f);
             if (hit.collider == null)
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         if (Input.GetAxis("Horizontal") <= -0.05f)
         {
             anim.SetBool("upIdle", false);
+            anim.SetBool("downIdle", false);
             this.GetComponent<SpriteRenderer>().flipX = true;
             RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-0.5f, 0), Vector2.left, 0.05f);
             if (hit.collider == null)
@@ -67,56 +70,76 @@ public class Player : MonoBehaviour
         if (Input.GetAxis("Vertical") >= 0.05f)
         {
             anim.SetBool("upIdle", true);
+            anim.SetBool("downIdle", false);
             facing = 2;
         }
         if (Input.GetAxis("Vertical") <= -0.05f)
         {
+            anim.SetBool("downIdle", true);
+            anim.SetBool("upIdle", false);
             facing = 3;
         }
 
-            if (Input.GetButtonDown("RangeAttack"))
+        if (Input.GetButtonDown("RangeAttack"))
+        {
+            anim.SetTrigger("shoot");
+            switch (facing)
             {
-                anim.SetTrigger("shoot");
-                switch (facing)
-                {
-                    case (0):
-                        Projectile projR = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
-                        projR.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
-                        break;
-                    case (1):
-                        Projectile projL = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
-                        projL.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
-                        break;
-                    case (2):
-                        Projectile projUp = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
-                        projUp.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
-                        break;
-                    case (3):
-                        Projectile projDown = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
-                        projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
-                        break;
-                }
+                case (0):
+                    Projectile projR = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
+                    projR.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+                    break;
+                case (1):
+                    Projectile projL = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
+                    projL.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
+                    break;
+                case (2):
+                    Projectile projUp = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
+                    projUp.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
+                    break;
+                case (3):
+                    Projectile projDown = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
+                    projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
+                    break;
             }
+        }
 
-            if (Input.GetButtonDown("Jump"))
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
+            if (hit.collider != null)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
-                if (hit.collider != null)
-                {
-                    this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
-                }
+                anim.SetBool("jump", true);
+                GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
             }
-            if (health <= 0)
-            {
-                anim.SetTrigger("fall");
-                anim.SetBool("dead", true);
-                Invoke("Death", 100f * Time.deltaTime);
-            }
+        }
+
+        if (Input.GetButtonDown("Taunt"))
+        {
+        anim.SetTrigger("taunt");
+        }
+
+        if (health <= 0)
+        {
+            anim.SetTrigger("fall");
+            anim.SetBool("dead", true);
+            Invoke("Death", 100f * Time.deltaTime);
+        }
     }
 
     void Death()
     {
         Destroy(gameObject);
+    }
+
+    void CheckGround()
+    {
+        RaycastHit2D checkGround = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
+        if (checkGround.collider != null)
+        {
+            anim.SetBool("jump", false);
+        }
     }
 }
     
