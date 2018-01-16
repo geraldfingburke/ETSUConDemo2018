@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Public Variables
     [Header("Where is the player facing?")]
     private int facing;
     [Header("Player Health")]
@@ -16,8 +17,24 @@ public class Player : MonoBehaviour
     public float projectileSpeed;
     [Header("Object of type 'Projectile'")]
     public Projectile projectile;
+    [Header("When true, player will have 'Rapid Fire'")]
+    public bool rapidFireActive;
+    [Header("Game Manager Instance")]
+    public GameStateManager gm;
+    #endregion
 
-    // Update is called once per frame
+    #region Private Variables
+    [Header("Holds float of last bullet shot")]
+    private float lastFire = 0f;
+    private float fireRate = .1f;
+    #endregion
+
+
+    private void Start()
+    {
+
+    }
+
     void Update()
     {
         if (Input.GetAxis("Horizontal") >= 0.05f)
@@ -57,7 +74,8 @@ public class Player : MonoBehaviour
         {
             facing = 3;
         }
-
+        if(!rapidFireActive)
+        {
             if (Input.GetButtonDown("RangeAttack"))
             {
                 switch (facing)
@@ -80,6 +98,41 @@ public class Player : MonoBehaviour
                         break;
                 }
             }
+        }
+        else
+        {
+            if (Input.GetButton("RangeAttack") && Time.time > lastFire)
+            {
+                switch (facing)
+                {
+                    case (0):
+                        lastFire = Time.time + fireRate;
+                        Projectile projR = Instantiate(projectile, transform.position + Vector3.right, Quaternion.identity);
+                        projR.gameObject.tag = "ProjectilePlayer1";
+                        projR.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+                        break;
+                    case (1):
+                        lastFire = Time.time + fireRate;
+                        Projectile projL = Instantiate(projectile, transform.position + Vector3.left, Quaternion.identity);
+                        projL.gameObject.tag = "ProjectilePlayer1";
+                        projL.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
+                        break;
+                    case (2):
+                        lastFire = Time.time + fireRate;
+                        Projectile projUp = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
+                        projUp.gameObject.tag = "ProjectilePlayer1";
+                        projUp.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
+                        break;
+                    case (3):
+                        lastFire = Time.time + fireRate;
+                        Projectile projDown = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
+                        projDown.gameObject.tag = "ProjectilePlayer1";
+                        projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
+                        break;
+                }
+            }
+        }
+
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -94,5 +147,30 @@ public class Player : MonoBehaviour
                 Destroy(gameObject); //".this" is not required  in unity. gameObject or lowercase transform refers to attached parent object  
             }
         }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="col"></param>
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        switch(col.gameObject.tag)
+        {
+            case ("SpeedPowerUp"):
+                var speedUp = new SpeedPowerUp();
+                StartCoroutine(speedUp.SpeedUpPlayerOne(gameObject));
+                Destroy(col.gameObject);
+                break;
+            case ("RapidFire"):
+                var rapidFire = new RapidFire();
+                StartCoroutine(rapidFire.RapidFirePlayerOne(gameObject));
+                Destroy(col.gameObject, .3f);
+                break;
+        }
     }
+
+    private IEnumerator waitForShortTime()
+    {
+        yield return new WaitForSeconds(1f);
+    }
+}
 

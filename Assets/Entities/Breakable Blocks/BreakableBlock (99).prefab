@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4004379432783834}
   - component: {fileID: 212569842917071582}
   - component: {fileID: 61668997495859296}
+  - component: {fileID: 61972503366897772}
   - component: {fileID: 114467123110875516}
   m_Layer: 0
   m_Name: BreakableBlock (99)
@@ -56,6 +57,20 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!61 &61972503366897772
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527404969785696}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!114 &114467123110875516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,6 +82,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e733646f7c50c34daf7393eec6c57db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUps:
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
+  - {fileID: 1946013623403328, guid: 5267a246d6f6fb44a8d3ff6253f3c234, type: 2}
 --- !u!212 &212569842917071582
 SpriteRenderer:
   m_ObjectHideFlags: 1

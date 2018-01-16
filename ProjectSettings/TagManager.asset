@@ -8,6 +8,12 @@ TagManager:
   - Unbreakable
   - Player1
   - Player2
+  - Projectile
+  - SpeedPowerUp
+  - RapidFire
+  - ProjectilePlayer1
+  - ProjectilePlayer2
+  - PlayerPickUp
   layers:
   - Default
   - TransparentFX

@@ -4,23 +4,39 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
+    [Header("Game Manager Instance")]
+    public GameStateManager gm;
+
+    private void Start()
+    {
+        gm = FindObjectOfType<GameStateManager>();
+    }
+
     void OnTriggerEnter2D (Collider2D col)
     {
-        if (col.CompareTag("Breakable"))
+        switch (col.gameObject.tag)
         {
-            Destroy(col.gameObject);
-            Destroy(this.gameObject);
-        } else if (col.CompareTag("Player1"))
-        {
-            col.GetComponent<Player>().health--;
-            Destroy(this.gameObject);
-        } else if (col.CompareTag("Player2"))
-        {
-            col.GetComponent<Player2>().health--;
-            Destroy(this.gameObject);
-        } else
-        {
-            Destroy(this.gameObject);
+            case ("Breakable"):
+                Destroy(gameObject);
+                break;
+            case ("Player1"):
+
+                Debug.Log("Should have died" + gameObject.name);
+                gm.player2Score++;
+                Destroy(gameObject);
+                Destroy(col.gameObject);
+                break;
+            case ("Player2"):
+                Debug.Log("Should have died" + gameObject.name);
+                gm.player1Score++;
+                Destroy(gameObject);
+                Destroy(col.gameObject);
+                break;
+            default:
+                Destroy(gameObject);
+                break;
         }
+
+
     }
 }
