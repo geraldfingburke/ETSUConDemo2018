@@ -8,6 +8,8 @@ TagManager:
   - Unbreakable
   - Player1
   - Player2
+  - Projectile
+  - Explosive
   layers:
   - Default
   - TransparentFX
