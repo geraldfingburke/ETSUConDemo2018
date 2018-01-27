@@ -52,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lava: {fileID: 1570573029496082, guid: 62bc64179d3f8df4f8cdb9493ccc274d, type: 2}
+  particles: {fileID: 1441359964560786, guid: b6c5b17194e434847943c98d5f0f0073, type: 2}
 --- !u!212 &212716455857962506
 SpriteRenderer:
   m_ObjectHideFlags: 1

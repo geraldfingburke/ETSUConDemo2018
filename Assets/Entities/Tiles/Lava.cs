@@ -5,18 +5,21 @@ using UnityEngine;
 public class Lava : MonoBehaviour {
 
     public GameObject lava;
+    public GameObject particles;
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         switch (col.gameObject.tag)
         {
             case ("Player1"):
-                    col.gameObject.GetComponent<Player>().health = 0;
-                    break;
+                Instantiate(particles, transform.position + new Vector3 (0,1,-15), Quaternion.identity);
+                col.gameObject.GetComponent<Player>().health = 0;
+                break;
 
             case ("Player2"):
-                    col.gameObject.GetComponent<Player2>().health = 0;
-                    break;
+                Instantiate(particles, transform.position + new Vector3(0, 1, -15), Quaternion.identity);
+                col.gameObject.GetComponent<Player2>().health = 0;
+                break;
 
             //TODO
             /**

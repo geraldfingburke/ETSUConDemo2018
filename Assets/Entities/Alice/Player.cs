@@ -73,12 +73,14 @@ public class Player : MonoBehaviour
             {
                 anim.SetBool("upIdle", true);
                 anim.SetBool("downIdle", false);
+                anim.SetBool("walk", false);
                 facing = 2;
             }
             if (Input.GetAxis("Vertical") <= -0.05f)
             {
                 anim.SetBool("downIdle", true);
                 anim.SetBool("upIdle", false);
+                anim.SetBool("walk", false);
                 facing = 3;
             }
 
