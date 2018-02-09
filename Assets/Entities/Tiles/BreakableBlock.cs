@@ -16,6 +16,9 @@ public class BreakableBlock : MonoBehaviour {
         switch(col.gameObject.tag)
         {
             case("Projectile"):
+                audioSource.pitch = Random.Range(0.75f, 1f);
+                audioSource.Play();
+                Instantiate(particles, transform.position);
                 Destroy(gameObject, .5f); //destroys this block after.5 float
                 break;
         }
