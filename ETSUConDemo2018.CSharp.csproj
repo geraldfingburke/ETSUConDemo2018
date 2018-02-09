@@ -219,6 +219,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AudioController.cs" />
+    <Compile Include="Assets\BGM.cs" />
     <Compile Include="Assets\Code\GameStateManager.cs" />
     <Compile Include="Assets\Code\ProceduralGeneration.cs" />
     <Compile Include="Assets\Entities\Alice\Player.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Assets\Entities\Tiles\BreakableBlock.cs" />
     <Compile Include="Assets\Entities\Tiles\Explosive.cs" />
     <Compile Include="Assets\Entities\Tiles\Lava.cs" />
+    <Compile Include="Assets\LavaFloor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

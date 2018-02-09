@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,6 +19,12 @@ public class Player : MonoBehaviour
     public float projectileSpeed;
     [Header("Object of type 'Projectile'")]
     public Projectile projectile;
+    private int deathCount;
+    public AudioSource audioSource;
+    public AudioClip shootSound;
+    public AudioClip jumpSound;
+    public AudioClip tauntSound;
+    public AudioClip deathSound;
 
     void Start()
     {
@@ -87,6 +94,9 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("RangeAttack"))
             {
                 anim.SetTrigger("shoot");
+                audioSource.clip = shootSound;
+                audioSource.pitch = Random.Range(0.5f, 1f);
+                audioSource.Play();
                 switch (facing)
                 {
                     case (0):
@@ -114,18 +124,26 @@ public class Player : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
                 if (hit.collider != null)
                 {
+                    audioSource.clip = jumpSound;
+                    audioSource.pitch = Random.Range(0.5f, 1f);
+                    audioSource.Play();
                     anim.SetBool("jump", true);
                     GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
                 }
             }
 
-            if (Input.GetButtonDown("Taunt"))
+            if (Input.GetButtonDown("Taunt") && !anim.GetBool("walk") && !anim.GetBool("jump"))
             {
+                audioSource.clip = tauntSound;
+                audioSource.pitch = Random.Range(0.75f, 1f);
+                audioSource.Play();
                 anim.SetTrigger("taunt");
             }
 
-            if (health <= 0)
+            if (health <= 0 || Input.GetKeyDown(KeyCode.K))
             {
+                audioSource.clip = deathSound;
+                audioSource.Play();
                 anim.SetTrigger("fall");
                 anim.SetBool("dead", true);
                 Invoke("Death", 100f * Time.deltaTime);
@@ -135,7 +153,8 @@ public class Player : MonoBehaviour
 
     void Death()
     {
-        Destroy(gameObject);
+        deathCount++;
+        SceneManager.LoadScene("Main");
     }
 
     void CheckGround()

@@ -6,18 +6,34 @@ public class Lava : MonoBehaviour {
 
     public GameObject lava;
     public GameObject particles;
+    private AudioSource audioSource;
 
     void OnTriggerEnter2D(Collider2D col)
     {
         switch (col.gameObject.tag)
         {
             case ("Player1"):
-                Instantiate(particles, transform.position + new Vector3 (0,1,-15), Quaternion.identity);
+                audioSource.Play();
+                if (GetComponent<LavaFloor>())
+                {
+                    Instantiate(particles, transform.position + new Vector3(0, 1, -15), Quaternion.identity);
+                } else
+                {
+                    Instantiate(particles, transform.position + new Vector3(0, 0, -15), Quaternion.identity);
+                }
                 col.gameObject.GetComponent<Player>().health = 0;
                 break;
 
             case ("Player2"):
-                Instantiate(particles, transform.position + new Vector3(0, 1, -15), Quaternion.identity);
+                audioSource.Play();
+                if (GetComponent<LavaFloor>())
+                {
+                    Instantiate(particles, transform.position + new Vector3(0, 1, -15), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(particles, transform.position + new Vector3(0, 0, -15), Quaternion.identity);
+                }
                 col.gameObject.GetComponent<Player2>().health = 0;
                 break;
 
@@ -34,6 +50,8 @@ public class Lava : MonoBehaviour {
     void Start ()
     {
         InvokeRepeating("LavaFlow", 0.5f, 0.5f);
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     void LavaFlow ()
