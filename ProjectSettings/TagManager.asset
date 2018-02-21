@@ -11,6 +11,8 @@ TagManager:
   - Projectile
   - Explosive
   - LavaFloor
+  - AliceScore
+  - CheckovScore
   layers:
   - Default
   - TransparentFX
@@ -47,4 +49,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1566303103
+    locked: 0
+  - name: Map
+    uniqueID: 888916929
+    locked: 0
+  - name: Player
+    uniqueID: 2818436425
+    locked: 0
+  - name: Lava
+    uniqueID: 3947121359
+    locked: 0
+  - name: SFX
+    uniqueID: 393038789
     locked: 0
