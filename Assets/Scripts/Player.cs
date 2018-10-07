@@ -2,76 +2,174 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
-
-public enum Facing
-{
-    Up, Down, Left, Right
-};
 
 public class Player : MonoBehaviour
 {
+    [Header("Where is the player facing?")]
+    private int facing;
     [Header("Object of type 'Animator'")]
-    [SerializeField]
     private Animator anim;
     [Header("Player Health")]
     public float health;
     [Header("How Fast Player Can Move")]
     public float moveSpeed;
-    [Header("How high player can jump")]
+    [Header("how high player can jump")]
     public float jumpHeight;
-    [Header("Object of type 'Projectile'")]
-    public Projectile projectile;
     [Header("How fast The projectile can move")]
     public float projectileSpeed;
-    [Header("Object of type 'GameStateManager'")]
-    [SerializeField]
-    private GameStateManager gameStateManager;
-    [Header("Object of type 'AudioSource'")]
+    [Header("Object of type 'Projectile'")]
+    public Projectile projectile;
+    private int deathCount;
     public AudioSource audioSource;
-    [Header("Clip for Shooting Sound Effect")]
     public AudioClip shootSound;
-    [Header("Clip for Jumping Sound Effect")]
     public AudioClip jumpSound;
-    [Header("Clip for Taunting Sound Effect")]
     public AudioClip tauntSound;
-    [Header("Clip for Death Sound Effect")]
     public AudioClip deathSound;
-    //TODO port this and associated functionality to Game State Manager
-    [Header("UI Text for Player's current health")]
-    public Text healthText; 
 
     void Start()
     {
-        gameStateManager = FindObjectOfType<GameStateManager>();
-        
+        anim = GetComponent<Animator>();
+        InvokeRepeating("CheckGround", 0.5f, 0.2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthText.text = (health * 10).ToString();
-    }
+        if (!anim.GetBool("dead"))
+        {
+            if (Input.GetAxis("Horizontal") >= 0.05f)
+            {
+                anim.SetBool("upIdle", false);
+                anim.SetBool("downIdle", false);
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0), Vector2.right, 0.05f);
+                if (hit.collider == null)
+                {
+                    anim.SetBool("walk", true);
+                    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    Debug.Log("blocked");
+                }
+                facing = 0;
+            }
+            if (Input.GetAxis("Horizontal") <= -0.05f)
+            {
+                anim.SetBool("upIdle", false);
+                anim.SetBool("downIdle", false);
+                this.GetComponent<SpriteRenderer>().flipX = true;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-0.5f, 0), Vector2.left, 0.05f);
+                if (hit.collider == null)
+                {
+                    anim.SetBool("walk", true);
+                    transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+                    Debug.Log("clear");
+                }
+                else
+                {
+                    Debug.Log("blocked");
+                }
+                facing = 1;
+            }
+            if (Input.GetAxis("Horizontal") == 0)
+            {
+                anim.SetBool("walk", false);
+            }
+            if (Input.GetAxis("Vertical") >= 0.05f)
+            {
+                anim.SetBool("upIdle", true);
+                anim.SetBool("downIdle", false);
+                anim.SetBool("walk", false);
+                facing = 2;
+            }
+            if (Input.GetAxis("Vertical") <= -0.05f)
+            {
+                anim.SetBool("downIdle", true);
+                anim.SetBool("upIdle", false);
+                anim.SetBool("walk", false);
+                facing = 3;
+            }
 
-    public void Die()
-    {
-        if (CompareTag("Player1"))
-        {
-            gameStateManager.player1Score++;
-        } else if (CompareTag("Player2"))
-        {
-            gameStateManager.player2Score++;
+            if (Input.GetButtonDown("RangeAttack"))
+            {
+                anim.SetTrigger("shoot");
+                audioSource.clip = shootSound;
+                audioSource.pitch = Random.Range(0.5f, 1f);
+                audioSource.Play();
+                switch (facing)
+                {
+                    case (0):
+                        Projectile projR = Instantiate(projectile, transform.position + new Vector3(0.5f, 0), Quaternion.identity);
+                        projR.GetComponent<Rigidbody2D>().AddForce(Vector2.right * projectileSpeed);
+                        break;
+                    case (1):
+                        Projectile projL = Instantiate(projectile, transform.position + new Vector3(-0.5f, 0), Quaternion.identity);
+                        projL.GetComponent<Rigidbody2D>().AddForce(Vector2.left * projectileSpeed);
+                        break;
+                    case (2):
+                        Projectile projUp = Instantiate(projectile, transform.position + Vector3.up, Quaternion.identity);
+                        projUp.GetComponent<Rigidbody2D>().AddForce(Vector2.up * projectileSpeed);
+                        break;
+                    case (3):
+                        Projectile projDown = Instantiate(projectile, transform.position + Vector3.down, Quaternion.identity);
+                        projDown.GetComponent<Rigidbody2D>().AddForce(Vector2.down * projectileSpeed);
+                        break;
+                }
+            }
+
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
+                if (hit.collider != null)
+                {
+                    audioSource.clip = jumpSound;
+                    audioSource.pitch = Random.Range(0.5f, 1f);
+                    audioSource.Play();
+                    anim.SetBool("jump", true);
+                    GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpHeight);
+                }
+            }
+
+            if (Input.GetButtonDown("Taunt") && !anim.GetBool("walk") && !anim.GetBool("jump"))
+            {
+                audioSource.clip = tauntSound;
+                audioSource.pitch = Random.Range(0.75f, 1f);
+                audioSource.Play();
+                anim.SetTrigger("taunt");
+            }
+
+            if (health <= 0 || Input.GetKeyDown(KeyCode.K))
+            {
+                audioSource.clip = deathSound;
+                audioSource.Play();
+                anim.SetTrigger("fall");
+                anim.SetBool("dead", true);
+                Invoke("Death", 100f * Time.deltaTime);
+            }
         }
-
-        gameStateManager.CheckForMatchOver();
     }
 
-    /*This is only for TNT Explosions, however, if we were to add colliders to
-     any other particles, this would become a problem*/
-    void OnParticleCollision (GameObject other)
+    void Death()
     {
-        health = 0;
+        deathCount++;
+        FindObjectOfType<GameStateManager>().player2Score++;
+        FindObjectOfType<GameStateManager>().CheckForMatchOver();
+    }
+
+    void CheckGround()
+    {
+        RaycastHit2D checkGround = Physics2D.Raycast(transform.position + new Vector3(0, -0.5f), Vector2.down, 0.5f);
+        if (checkGround.collider != null)
+        {
+            anim.SetBool("jump", false);
+        }
+    }
+
+    void OnParticleCollision (GameObject other) {
+        if (other.CompareTag("Explosive")) {
+            health = 0;
+        }
     }
 }
-    
-

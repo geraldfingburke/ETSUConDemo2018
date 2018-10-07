@@ -60,6 +60,7 @@ public class GameStateManager : MonoBehaviour {
     
     public void CheckForMatchOver()
     {
+        Debug.Log("It's working here");
         canvas = FindObjectOfType<Canvas>();
         if(player1Score >= maxScoreNeeded || player2Score >= maxScoreNeeded)
         {
@@ -77,18 +78,20 @@ public class GameStateManager : MonoBehaviour {
                 Instantiate(checkovWins, canvas.transform);
                 Invoke("CreateNextLevel", 3f);
             }
-            else
+            else if (player1Score == player2Score)
             {
                 player1Score = 0;
                 player2Score = 0;
                 Instantiate(tie, canvas.transform);
                 Invoke("CreateNextLevel", 3f);
             }
-        } else
+        } 
+        else
         {
             int scene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(scene, LoadSceneMode.Single);
+            SceneManager.LoadScene(scene);
         }
+        
     }
 
     public void CreateNextLevel()

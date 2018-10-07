@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour {
         anim.SetBool("downIdle", false);
         anim.SetBool("taunt", false);
         anim.SetBool("dead", true);
-        player.Die();
     }
 
     void Jump()

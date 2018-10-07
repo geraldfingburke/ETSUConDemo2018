@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1607802329986960}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1607802329986960
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4976532183324326}
   - component: {fileID: 212916418045170508}
@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 50568719872680792}
   - component: {fileID: 61132965764821634}
   - component: {fileID: 95811411837082484}
-  - component: {fileID: 114034530545414548}
   - component: {fileID: 82517727975215746}
   m_Layer: 0
   m_Name: Alice
@@ -36,7 +35,7 @@ GameObject:
 --- !u!4 &4976532183324326
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
@@ -50,7 +49,7 @@ Transform:
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_BodyType: 0
@@ -69,7 +68,7 @@ Rigidbody2D:
 --- !u!61 &61132965764821634
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_Enabled: 1
@@ -94,7 +93,7 @@ BoxCollider2D:
 --- !u!82 &82517727975215746
 AudioSource:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_Enabled: 1
@@ -120,54 +119,69 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
@@ -175,7 +189,7 @@ AudioSource:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_Enabled: 1
@@ -188,25 +202,11 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114034530545414548
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1607802329986960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e929bf8ae9ec72946a01de64381345ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  facing: 0
-  anim: {fileID: 95811411837082484}
-  audioSource: {fileID: 82517727975215746}
-  player: {fileID: 114482964147430908}
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114482964147430908
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_Enabled: 1
@@ -214,25 +214,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71956bc07e27b28449ce68804656d976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 95811411837082484}
   health: 10
   moveSpeed: 10
   jumpHeight: 700
+  projectileSpeed: 1000
   projectile: {fileID: 114537209774484542, guid: 3c8415d549f275b47bf4556b85658c0c,
     type: 2}
-  projectileSpeed: 1000
-  gameStateManager: {fileID: 0}
   audioSource: {fileID: 82517727975215746}
   shootSound: {fileID: 8300000, guid: 39a210373c8185d4b93b8e1177baa279, type: 3}
   jumpSound: {fileID: 8300000, guid: 2140711725a617840bef2819985af1c7, type: 3}
   tauntSound: {fileID: 8300000, guid: 2ae2b88d8116d74489244a42ef42c1cb, type: 3}
   deathSound: {fileID: 8300000, guid: f0ed41e5fd78bc54fa4cdb00f594773a, type: 3}
-  healthText: {fileID: 114915353505445914, guid: 96929c9ce79393e47b70cf1ab00a6729,
-    type: 2}
 --- !u!212 &212916418045170508
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607802329986960}
   m_Enabled: 1
@@ -242,6 +238,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -273,3 +270,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

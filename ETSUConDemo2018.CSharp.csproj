@@ -289,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scenes\Projectile.cs" />
+    <Compile Include="Assets\Code\Camera\CameraShake.cs" />
     <Compile Include="Assets\Scripts\AudioController.cs" />
     <Compile Include="Assets\Scripts\BGM.cs" />
     <Compile Include="Assets\Scripts\BreakableBlock.cs" />
@@ -299,7 +300,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\SceneControl.cs" />
-    <Compile Include="Assets\Scripts\ScoreText.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

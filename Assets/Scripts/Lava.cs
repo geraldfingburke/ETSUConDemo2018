@@ -18,7 +18,11 @@ public class Lava : MonoBehaviour {
         {
             Instantiate(particles, transform.position + new Vector3(0, 0, -15), Quaternion.identity);
         }
-        col.GetComponent<Player>().health = 0;
+        if (col.CompareTag("Player1")) {
+            col.GetComponent<Player>().health = 0;
+        } else if (col.CompareTag("Player2")) {
+            col.GetComponent<Player2>().health = 0;
+        }
     }
 
     void Start ()

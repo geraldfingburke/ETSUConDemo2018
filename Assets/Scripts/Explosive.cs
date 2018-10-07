@@ -30,6 +30,7 @@ public class Explosive : MonoBehaviour {
         particles.Play();
         anim.SetTrigger("explode");
         audioSource.Play();
+        FindObjectOfType<CameraShake>().Shake(1f, 0.5f);
         Destroy(gameObject, 1);
     }
 
